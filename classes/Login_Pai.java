@@ -7,14 +7,20 @@ package classes;
 
 public class Login_Pai {
 
+    protected int id;
     protected String nome;
     protected String cpf;
-    protected String telefone;
+    protected int telefone;
     protected String email;
     protected String endereco;
+    
+    //contrutor vazio
+    public Login_Pai (){
+    
+    }
 
     // Construtor da classe Pai
-    public Login_Pai(String nome, String cpf, String telefone,
+    public Login_Pai(int id, String nome, String cpf, int telefone,
             String email, String endereco) {
         this.nome = nome;
         this.cpf = cpf;
@@ -23,37 +29,11 @@ public class Login_Pai {
         this.endereco = endereco;
     }
 
-    // Atualiza o nome do cliente
-    public void alterarNome(String nome) {
-        this.nome = nome;
+    // Retorna o id
+    public int getid(){
+     return id;
     }
-
-    // Atualiza o CPF do cliente
-    public void alterarCPF(String cpf) {
-        this.cpf = cpf;
-    }
-
-    // Atualiza o telefone do cliente
-    public void alterarTelefone(String telefone) {
-        this.telefone = telefone;
-    }
-
-    // Atualiza o e-mail do cliente
-    public void alterarEmail(String email) {
-        this.email = email;
-    }
-
-    // Atualiza o endereço do cliente
-    public void alterarEndereco(String endereco) {
-        this.endereco = endereco;
-    }
-
-    /* Atualiza o plano escolhido pelo cliente
-    public void alterarTipoPlano(String tipoPlano) {
-        this.tipoPlano = tipoPlano;
-    }
-    */
-
+    
     // Retorna o nome do cliente
     public String getNome() {
         return nome;
@@ -65,7 +45,7 @@ public class Login_Pai {
     }
 
     // Retorna o telefone do cliente
-    public String getTelefone() {
+    public int getTelefone() {
         return telefone;
     }
 
