@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package classes;
 
 
@@ -34,37 +31,30 @@ public class Login_Pai {
      return id;
     }
     
-    // Retorna o nome do cliente
+    // Retorna o nome
     public String getNome() {
         return nome;
     }
 
-    // Retorna o CPF do cliente
+    // Retorna o CPF
     public String getCpf() {
         return cpf;
     }
 
-    // Retorna o telefone do cliente
+    // Retorna o telefonee
     public int getTelefone() {
         return telefone;
     }
 
-    // Retorna o e-mail do cliente
+    // Retorna o e-mail
     public String getEmail() {
         return email;
     }
 
-    // Retorna o endereço do cliente
+    // Retorna o endereço
     public String getEndereco() {
         return endereco;
     }
-
-    /* Retorna o tipo de plano escolhido
-    public String getTipoPlano() {
-        return tipoPlano;
-
-    }
-*/
     
 }
 
