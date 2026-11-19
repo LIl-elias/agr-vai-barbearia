@@ -103,7 +103,9 @@ public class ClienteDao {
 
                 cliente.setemail(rs.getString("email"));
 
-                cliente.setendereco(rs.getString("endereco"));
+                cliente.setendereco (rs.getString("endereco"));
+                
+                cliente.settipo_plano(rs.getString("tipo_plano"));
 
                 // Adiciona o objeto Cliente preenchido dentro da lista.
                 lista.add(cliente);
@@ -131,7 +133,7 @@ public class ClienteDao {
 
         // Abre a conexão com o banco de dados.
         // Prepara o comando SQL para receber o ID do cliente.
-        try (Connection conn = ConexaoBD.getConexao(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try (Connection conn = Conexao.getConexao(); PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             // Define o primeiro parâmetro (?) com o ID recebido pelo método.
             stmt.setInt(1, id);
@@ -155,25 +157,35 @@ public class ClienteDao {
 // MÉTODO PARA PESQUISAR CLIENTES PELO NOME OU CPF
 // Recebe um texto que será utilizado como critério de pesquisa.
 // Retorna uma lista contendo os clientes encontrados.
-    public List<Cliente> pesquisar(String pesquisa) {
+    public List<Login_Cliente> pesquisar(String pesquisa) {
 
         // Cria uma lista para armazenar os clientes encontrados.
-        List<Cliente> lista = new ArrayList<>();
+        List<Login_Cliente> lista = new ArrayList<>();
 
         // Cria o comando SQL para pesquisar pelo nome ou CPF.
         // O operador LIKE permite pesquisar parte do texto informado.
-        String sql = "SELECT id, nome, cpf, idade FROM cliente "
+        String sql = "SELECT id, nome, cpf, telefone, endereco, tipo_plano FROM cliente "
                 + "WHERE nome LIKE ? OR cpf LIKE ? ORDER BY id";
 
         // Abre a conexão com o banco de dados.
         // Prepara o comando SQL e executa a consulta.
-        try (Connection conn = ConexaoBD.getConexao(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try (Connection conn = Conexao.getConexao(); PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             // Define o primeiro parâmetro (?) para pesquisar pelo nome.
             stmt.setString(1, "%" + pesquisa + "%");
 
             // Define o segundo parâmetro (?) para pesquisar pelo CPF.
             stmt.setString(2, "%" + pesquisa + "%");
+            
+            stmt.setString(3, "%" + pesquisa + "%");
+            
+            stmt.setString(4, "%" + pesquisa + "%");
+            
+            stmt.setString(5, "%" + pesquisa + "%");
+            
+            stmt.setString(6, "%" + pesquisa + "%");
+            
+            
 
             // Executa a consulta e recebe os registros encontrados.
             try (ResultSet rs = stmt.executeQuery()) {
@@ -182,13 +194,15 @@ public class ClienteDao {
                 while (rs.next()) {
 
                     // Cria um novo objeto Cliente.
-                    Cliente cliente = new Cliente();
+                    Login_Cliente cliente = new Login_Cliente();
 
                     // Recupera os dados do banco de dados.
-                    cliente.setId(rs.getInt("id"));
-                    cliente.setNome(rs.getString("nome"));
-                    cliente.setCpf(rs.getString("cpf"));
-                    cliente.setIdade(rs.getInt("idade"));
+                    cliente.setid(rs.getInt("id"));
+                    cliente.setnome(rs.getString("nome"));
+                    cliente.setcpf(rs.getString("cpf"));
+                    cliente.settelefone(rs.getInt("telefone"));
+                    cliente.setendereco(rs.getString("endereco"));
+                    cliente.settipo_plano(rs.getString("tipo_plano"));
 
                     // Adiciona o cliente na lista.
                     lista.add(cliente);
@@ -209,7 +223,7 @@ public class ClienteDao {
     // MÉTODO PARA ALTERAR OS DADOS DE UM CLIENTE
     // Recebe um objeto Cliente com os novos dados.
     // Retorna true se a alteração for realizada com sucesso.
-    public boolean alterar(Cliente cliente) {
+    public boolean alterar(Login_Cliente cliente) {
 
         // Cria o comando SQL para atualizar os dados do cliente.
         // O ID identifica qual registro deverá ser alterado.
@@ -217,19 +231,27 @@ public class ClienteDao {
 
         // Abre a conexão com o banco de dados.
         // Prepara o comando SQL para receber os novos valores.
-        try (Connection conn = ConexaoBD.getConexao(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try (Connection conn = Conexao.getConexao(); PreparedStatement stmt = conn.prepareStatement(sql)) {
 
+            
+            
             // Define o primeiro parâmetro (?) com o novo nome.
             stmt.setString(1, cliente.getNome());
 
             // Define o segundo parâmetro (?) com a nova idade.
-            stmt.setInt(2, cliente.getIdade());
+            stmt.setString(2, cliente.getCpf());
 
             // Define o terceiro parâmetro (?) com o novo CPF.
-            stmt.setString(3, cliente.getCpf());
+            stmt.setInt(3, cliente.getTelefone());
 
             // Define o quarto parâmetro (?) com o ID do cliente.
-            stmt.setInt(4, cliente.getId());
+            stmt.setString(4, cliente.getEmail());
+            
+            stmt.setString(5, cliente.getEndereco());
+            
+            stmt.setString(6, cliente.getTipoPlano());
+            
+            stmt.setInt(7, cliente.getid());
 
             // Executa a alteração no banco de dados.
             // Retorna true se algum registro foi atualizado.
