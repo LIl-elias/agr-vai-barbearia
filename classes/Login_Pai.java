@@ -5,11 +5,11 @@ package classes;
 public class Login_Pai {
 
     protected int id;
-    protected String nome;
-    protected String cpf;
-    protected int telefone;
-    protected String email;
-    protected String endereco;
+    protected String Nome;
+    protected String Cpf;
+    protected int Telefone;
+    protected String Email;
+    protected String Endereco;
     
     //contrutor vazio
     public Login_Pai (){
@@ -17,13 +17,13 @@ public class Login_Pai {
     }
 
     // Construtor da classe Pai
-    public Login_Pai(int id, String nome, String cpf, int telefone,
-            String email, String endereco) {
-        this.nome = nome;
-        this.cpf = cpf;
-        this.telefone = telefone;
-        this.email = email;
-        this.endereco = endereco;
+    public Login_Pai(int id, String Nome, String Cpf, int Telefone,
+            String Email, String Endereco) {
+        this.Nome = Nome;
+        this.Cpf = Cpf;
+        this.Telefone = Telefone;
+        this.Email = Email;
+        this.Endereco = Endereco;
     }
 
     // Retorna o id
@@ -33,27 +33,27 @@ public class Login_Pai {
     
     // Retorna o nome
     public String getNome() {
-        return nome;
+        return Nome;
     }
 
     // Retorna o CPF
     public String getCpf() {
-        return cpf;
+        return Cpf;
     }
 
     // Retorna o telefonee
     public int getTelefone() {
-        return telefone;
+        return Telefone;
     }
 
     // Retorna o e-mail
     public String getEmail() {
-        return email;
+        return Email;
     }
 
     // Retorna o endereço
     public String getEndereco() {
-        return endereco;
+        return Endereco;
     }
     
 }
