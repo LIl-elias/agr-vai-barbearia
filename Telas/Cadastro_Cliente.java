@@ -1,23 +1,73 @@
 package Telas;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+import Dao.ClienteDao;
+import classes.Cliente;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author elias_oliveira151
- */
 public class Cadastro_Cliente extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Cadastro_Cliente.class.getName());
+    private static final java.util.logging.Logger logger =
+            java.util.logging.Logger.getLogger(Cadastro_Cliente.class.getName());
 
-    /**
-     * Creates new form Cadastro_Cliente
-     */
+  private void carregarDadosDoBancoCliente() {
+      
+        List<Cliente> Cliente = ClienteDao.listar();
+        preencherTabela(Cliente);
+    }
+    
+    private void preencherTabela(List<Cliente> clientes) {
+
+        DefaultTableModel modelo = (DefaultTableModel) TabelaCliente.getModel();
+        modelo.setRowCount(0);
+        for (Cliente cliente : clientes) {
+            modelo.addRow(new Object[]{
+                cliente.getid(),
+                cliente.getNome(),
+                cliente.getCpf(),
+                cliente.getTelefone(),
+                cliente.getEndereco(),
+                cliente.getEmail(),
+                cliente.getTipoPlano()
+            });
+        }
+    }
+    
+    private void preencherCamposSelecionados() {
+        int linha = TabelaCliente.getSelectedRow();
+        if (linha != -1) {
+            txtNome.setText(
+                    TabelaCliente.getValueAt(linha, 1).toString()
+            );
+            txtCpf.setText(
+                    TabelaCliente.getValueAt(linha, 2).toString()
+            );
+            txtTelefone.setText(
+                    TabelaCliente.getValueAt(linha, 3).toString()
+            );
+            
+             txtEmail.setText(
+                    TabelaCliente.getValueAt(linha, 4).toString()
+            );
+             
+              txtEndereco.setText(
+                    TabelaCliente.getValueAt(linha, 5).toString()
+            );
+               txtPlano.setText(
+                    TabelaCliente.getValueAt(linha, 6).toString()
+            );
+        }
+    }
+    
+    private final ClienteDao clienteDAO = new ClienteDao();
+
+    
+    
     public Cadastro_Cliente() {
         initComponents();
+        
+        
     }
 
     /**
@@ -53,9 +103,9 @@ public class Cadastro_Cliente extends javax.swing.JFrame {
         jbCadastro = new javax.swing.JButton();
         jbApagar = new javax.swing.JButton();
         jScrollPane14 = new javax.swing.JScrollPane();
-        jTable14 = new javax.swing.JTable();
+        TabelaCliente = new javax.swing.JTable();
         jLabel10 = new javax.swing.JLabel();
-        txtSenha = new javax.swing.JTextField();
+        txtCpf = new javax.swing.JTextField();
         jDesktopPane3 = new javax.swing.JDesktopPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -154,20 +204,18 @@ public class Cadastro_Cliente extends javax.swing.JFrame {
 
         jbApagar.setText("Apagar");
 
-        jTable14.setModel(new javax.swing.table.DefaultTableModel(
+        TabelaCliente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Nome", "Idade", "Telefone", "E-mail", "Tipo plano"
+                "Nome", "Cpf", "Telefone", "E-mail", "Endereco", "Tipo de Plano"
             }
         ));
-        jScrollPane14.setViewportView(jTable14);
+        jScrollPane14.setViewportView(TabelaCliente);
 
-        jLabel10.setText("*Idade:");
+        jLabel10.setText("*CPF:");
 
         jDesktopPane1.setLayer(jDesktopPane2, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -185,7 +233,7 @@ public class Cadastro_Cliente extends javax.swing.JFrame {
         jDesktopPane1.setLayer(jbApagar, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jScrollPane14, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jLabel10, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(txtSenha, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(txtCpf, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
@@ -196,39 +244,39 @@ public class Cadastro_Cliente extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                        .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5)
-                            .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(jbCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
-                                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                                        .addGap(18, 18, 18)
-                                        .addComponent(txtPlano, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
-                                        .addGap(20, 20, 20)
-                                        .addComponent(jbApagar)))))
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane14, javax.swing.GroupLayout.DEFAULT_SIZE, 675, Short.MAX_VALUE))
+                        .addComponent(jLabel1)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                        .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
+                        .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(jDesktopPane1Layout.createSequentialGroup()
                                 .addComponent(jLabel10)
-                                .addGap(22, 22, 22)
-                                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtTelefone, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
-                                    .addComponent(txtSenha, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(txtEmail, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(txtEndereco, javax.swing.GroupLayout.Alignment.TRAILING))))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                                    .addComponent(jLabel2)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jLabel3)
+                                .addComponent(jLabel4)
+                                .addComponent(jLabel5)
+                                .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                                    .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(jbCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
+                                        .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                                            .addGap(18, 18, 18)
+                                            .addComponent(txtPlano, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
+                                            .addGap(20, 20, 20)
+                                            .addComponent(jbApagar)))))
+                            .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(txtEmail, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
+                                .addComponent(txtTelefone, javax.swing.GroupLayout.Alignment.TRAILING))
+                            .addComponent(txtEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane14, javax.swing.GroupLayout.DEFAULT_SIZE, 675, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jDesktopPane1Layout.setVerticalGroup(
@@ -246,7 +294,7 @@ public class Cadastro_Cliente extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel10)
-                                    .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel3)
@@ -340,6 +388,7 @@ public class Cadastro_Cliente extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable TabelaCliente;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -358,15 +407,14 @@ public class Cadastro_Cliente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane14;
-    private javax.swing.JTable jTable14;
     private javax.swing.JButton jbApagar;
     private javax.swing.JButton jbCadastro;
     private javax.swing.JButton jbSairMenu;
+    private javax.swing.JTextField txtCpf;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtEndereco;
     private javax.swing.JTextField txtNome;
     private javax.swing.JComboBox<String> txtPlano;
-    private javax.swing.JTextField txtSenha;
     private javax.swing.JFormattedTextField txtTelefone;
     // End of variables declaration//GEN-END:variables
 }
