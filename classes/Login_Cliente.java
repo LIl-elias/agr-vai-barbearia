@@ -44,4 +44,14 @@ public class Login_Cliente extends Login_Pai {
     public void settipoPlano(String TipoPlano) {
         this.TipoPlano = TipoPlano;
     }
+    
+    // comandos feitos pelo netBeans para fazer o codigo funcionar
+
+    public void setendereco(String string) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public void settipo_plano(String string) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

@@ -17,23 +17,23 @@ public class Login_Barbeiro extends Login_Pai {
     }
 
     public void setnome(String nome) {
-        this.nome = nome;
+        this.Nome = nome;
     }
 
     public void setcpf(String cpf) {
-        this.cpf = cpf;
+        this.Cpf = cpf;
     }
 
     public void settelefone(int telefone) {
-        this.telefone = telefone;
+        this.Telefone = telefone;
     }
 
     public void setemail(String email) {
-        this.email = email;
+        this.Email = email;
     }
 
     public void setenderoco(String endereco) {
-        this.endereco = endereco;
+        this.Endereco = endereco;
     }
     
     public Login_Barbeiro (){
